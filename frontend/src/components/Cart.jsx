@@ -2,10 +2,12 @@ import {useSelector,useDispatch} from "react-redux";
 import {Link} from "react-router-dom"
 import { removeFromCart ,decreaseCart,addToCart,clearCart,getTotal} from "../features/cartSlice";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const Cart = () => {
     const cart = useSelector((state)=> state.cart);
     const dispatch = useDispatch();
+    const history = useHistory();
     useEffect(()=>{
         dispatch(getTotal());
     },[cart,dispatch])
@@ -22,14 +24,22 @@ const Cart = () => {
     const handleClearCart = ()=>{
         dispatch(clearCart());
     }
-    
+    const handlePlaceOrder = ()=>{
+        dispatch(clearCart());
+        history.push("/Order");
+    }
+    const handleGoToHome = ()=>{
+        history.push("/");
+    }
 
     return (
     <div className="cart-container">
-        <h2>Shopping Cart</h2>
+        <h2>Shopping Basket Checkout</h2>
+       
+       
         { cart.cartItems.length===0 ?(
             <div className="cart-empty">
-                <p>Your cart is currently empty</p>
+                <p>Your basket is currently empty</p>
                 <div className="start-shopping">
                     <Link to ="/">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
@@ -43,6 +53,10 @@ const Cart = () => {
             </div>
         ):(
             <div>
+               <div className="go-home-container">
+                    <button onClick={()=> handleGoToHome()} className="back-home" >Back To Home</button>
+                    <div className="go-home-right">combox</div>                    
+               </div>
                <div className="titles">
                  <h3 className="product-title">Product</h3> 
                  <h3 className="price">Price</h3>
@@ -76,14 +90,18 @@ const Cart = () => {
                 </div>
 
                 <div className="cart-summary">
-                    <button className="clear-cart" onClick={()=>handleClearCart()}>Clear Cart</button>
+                    <button className="clear-cart" onClick={()=>handleClearCart()}>Clear Basket</button>
                     <div className="cart-checkout">
+                        <div className="shipping">
+                            <span>Shipping</span>
+                            <span className="shippingAmount">${cart.cartShippingAmount}</span>
+                        </div>
                         <div className="subtotal">
                             <span>Subtotal</span>
                             <span className="amount">${cart.cartTotalAmount}</span>
                         </div>
-                        <p>Taxes and shipping calculated at checkout</p>
-                        <button>Check out</button>
+                        {/* <p>Taxes and shipping calculated at checkout</p> */}
+                        <button onClick={()=>handlePlaceOrder()}>Place order</button>
                         <div className="continue-shopping">
                             <Link to ="/">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
