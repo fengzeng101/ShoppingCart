@@ -5,7 +5,7 @@ const NavBar = () => {
     const {cartTotalQuantity} =useSelector(state=>state.cart)
     return ( <nav className = "nav-bar">
             <Link to = "/">
-                <h2>My Store</h2>
+                <h2>LEGO Store</h2>
             </Link>
             <Link to = "/cart">
                 <div className="nav-bag">
