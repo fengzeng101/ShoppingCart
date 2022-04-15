@@ -8,7 +8,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 app.get("/",(req,res)=>{
-    res.send("Welcome to our online shop API222...")
+    res.send("Welcome to our online shop API...")
 })
 
 app.get("/products",(req,res)=>{
