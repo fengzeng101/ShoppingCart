@@ -1,33 +1,25 @@
 
 import './App.css';
 import "react-toastify/dist/ReactToastify.css"
-import {BrowserRouter, Route, Switch,Redirect} from "react-router-dom"
+import { Route, Switch,Redirect} from "react-router-dom"
 import {ToastContainer} from "react-toastify"
-
-
 import NavBar from './components/NavBar';
 import Cart from './components/Cart';
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 
 
-const App=()=> {
+function App() {
   return (
-    <div className="App">
-
-       <BrowserRouter>
-      
+    <div className="App">             
          <ToastContainer/>
          <NavBar/>
          <Switch>                                    
-         <Route path="/cart" component={Cart} />
-            <Route path="/not-found" component={NotFound} />
-            <Route path="/" exact component={Home} />
-            <Redirect to="/not-found" />  
-         </Switch>
-   
-       </BrowserRouter>
-
+            <Route path="/cart" exact component={Cart} />
+            <Route path="/not-found" exact component={NotFound} />
+            <Route path="/" exact  component={Home} />
+            <Redirect to="/not-found" />             
+         </Switch>          
     </div> 
   );
 }
