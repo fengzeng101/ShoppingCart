@@ -4,8 +4,8 @@ import App from './App';
 import {configureStore} from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import productsReducer, { productsFetch } from "./features/productsSlice";
-import { productsApi } from './features/productsApi';
-import cartReducer, {getTotal} from "./features/cartSlice"
+import { productsApi } from './API/productsApi';
+import cartReducer from "./features/cartSlice"
 import {BrowserRouter} from "react-router-dom"
 
 
@@ -20,10 +20,10 @@ const store = configureStore({
   },
 });
 store.dispatch(productsFetch())
-//store.dispatch(getTotal())
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // I move "Browser Router" from App.js to here, otherwise will have refresh problem
   <BrowserRouter>
     <React.StrictMode>
       <Provider store={store}>

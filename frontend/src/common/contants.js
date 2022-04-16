@@ -14,5 +14,7 @@ export const  COUNTRY_LIST =[
         label:"British",
         symbol:"£"
     }
-]
+];
+
+export const  BASE_URL ="http://localhost:5000";
 

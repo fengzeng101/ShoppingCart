@@ -1,12 +1,10 @@
-import { useGetAllProductsQuery } from "../features/productsApi";
+import { useGetAllProductsQuery } from "../API/productsApi";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addToCart } from "../features/cartSlice";
 
-
-
 const Home = () => {
-  //  const {items, status} = useSelector(state=> state.products)
+  
     const {data, error,isLoading} =useGetAllProductsQuery();
     const dispatch = useDispatch();
     const history = useHistory();

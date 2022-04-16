@@ -1,4 +1,5 @@
 import { createSlice , createAsyncThunk} from "@reduxjs/toolkit";
+import {BASE_URL} from "../common/contants"
 import axios from "axios"
 const initialState={
     items:[],
@@ -7,9 +8,9 @@ const initialState={
 
 // create Async Thunk
 export const productsFetch = createAsyncThunk(
-    "pprducts/productsFetch",
+    "prducts/productsFetch",
     async ()=>{
-       const response = await axios.get("http://localhost:5000/products")
+       const response = await axios.get(BASE_URL+"/products")
        return response?.data;
     }
 )
@@ -20,7 +21,7 @@ const productsSlice = createSlice({
     reducers:{},  
     extraReducers:{
       [productsFetch.pending]  : (state,action)=>{
-        //Better Reducers With Immer
+        //Better Reducers With Immer  
         state.status= "pending"
       },
       [productsFetch.fulfilled]  : (state,action)=>{        

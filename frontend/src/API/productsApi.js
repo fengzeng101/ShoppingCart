@@ -1,8 +1,9 @@
 import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"
-// RTK Query data fetching API, new way to using redux toolkit.
+import {BASE_URL} from "../common/contants"
+// RTK Query data fetching API, different way to using redux toolkit.
 export const productsApi = createApi({
     reducerPath:"productsApi",
-    baseQuery:fetchBaseQuery({baseUrl:"http://localhost:5000"}),
+    baseQuery:fetchBaseQuery({baseUrl:BASE_URL}),
     endpoints:(builder)=>({
         getAllProducts:builder.query({
             query:()=>"products",

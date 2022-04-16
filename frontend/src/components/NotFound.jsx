@@ -5,7 +5,6 @@ const NotFound = () => {
         <p>Page not found</p>
     </div>
       );
-
 }
  
 export default NotFound;

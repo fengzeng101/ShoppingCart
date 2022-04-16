@@ -1,9 +1,12 @@
-import {useSelector,useDispatch} from "react-redux";
-import {Link} from "react-router-dom"
-import { removeFromCart ,decreaseCart,addToCart,clearCart,getTotal} from "../features/cartSlice";
+import { useSelector,useDispatch} from "react-redux";
+import { Link} from "react-router-dom"
+import { removeFromCart ,decreaseCart,addToCart,clearCart,getTotal,removeCart} from "../features/cartSlice";
 import { useEffect,useState} from "react";
 import { useHistory } from "react-router-dom";
 import CountrySelect from "./CountrySelect"
+import { getShippingFee,postOrderData } from "../API/storeApi";
+import { toast} from "react-toastify"
+import { COUNTRY_LIST as countryList } from "../common/contants";
 
 
 const Cart = () => {
@@ -11,15 +14,36 @@ const Cart = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [currency,setCurrency]=useState(cart.currencyLabel);
-    useEffect(()=>{
-        
-        setCurrency(cart.currencyLabel);
-        dispatch(getTotal());
-       // console.log(`user effect cart =${JSON.stringify(cart)}`);
-    },[cart,dispatch,currency])
-   
-    
+    const [deliveryFee,setDeliveryFee]=useState(cart.cartShippingAmount.newValue);       
 
+    useEffect(()=>{  
+        // set up the currency sign ($¥£) for different currency amount
+        setCurrency(cart.currencyLabel);  
+        //find out what is current selected         
+        const tempCountry = localStorage.getItem("country")
+            ? JSON.parse(localStorage.getItem("country")):{ value:1, label:"Australia"}
+        
+        // get the country index then we can use it to find the currency rate in next step
+        const countryIndex =countryList.findIndex(x=>x.label===tempCountry.label);     
+        
+        // product total $Aud = (total amount - shipping fee)/ currency rate
+        let productTotal = (cart.cartTotalAmount-cart.cartShippingAmount.newValue)/countryList[countryIndex].value;                   
+        
+        // call backend API by pass the product total AUD amount to get the new $AUD shipping fee
+        getShippingFee(productTotal)
+        .then((data) => {     
+            setDeliveryFee(data.shipping* countryList[countryIndex].value);
+            // new different currency shipping fee = API return Australia dollar shipping fee * currency rate
+            const tempShippingFee = data.shipping*countryList[countryIndex].value;            
+            // pass the new shipping fee to calculate total amount again
+            dispatch(getTotal(tempShippingFee)); 
+        })
+        .catch(() => {
+            toast.error(`Error happened getting shipping fee`,{position:"bottom-left"});
+        });
+       
+    },[cart,dispatch,currency,cart.cartTotalQuantity])
+   
     const handleRemoveFromCart = (cartItem)=>{
         dispatch(removeFromCart(cartItem));
     }
@@ -33,8 +57,16 @@ const Cart = () => {
         dispatch(clearCart());
     }
     const handlePlaceOrder = ()=>{
-        dispatch(clearCart());
-        history.push("/Order");
+              
+        postOrderData(cart.cartItems)
+        .then((data) => {       
+            dispatch(removeCart());
+            history.push("/Order");       
+        })
+        .catch(() => {          
+          toast.error(`Error happened in place order`,{position:"bottom-left"});
+        });
+       
     }
     const handleGoToHome = ()=>{
         history.push("/");
@@ -42,9 +74,8 @@ const Cart = () => {
 
     return (
     <div className="cart-container">
-        <h2>Shopping Basket Checkout</h2>
-       
-       
+        <h2>Shopping Basket Checkout</h2>  
+        {/* check if the product count in the basket is 0 */}
         { cart.cartItems.length===0 ?(
             <div className="cart-empty">
                 <p>Your basket is currently empty</p>
@@ -67,10 +98,10 @@ const Cart = () => {
                     <div className="go-home-right"><CountrySelect/></div>                    
                </div>
                <div className="titles">
-                 <h3 className="product-title">Product</h3> 
-                 <h3 className="price">Price</h3>
-                 <h3 className="quantity">Quantity</h3>
-                 <h3 className="total">Total</h3>
+                    <h3 className="product-title">Product</h3> 
+                    <h3 className="price">Price</h3>
+                    <h3 className="quantity">Quantity</h3>
+                    <h3 className="total">Total</h3>
                 </div>  
                 <div className="cart-items">
                     {cart.cartItems?.map(cartItem=>(
@@ -103,7 +134,7 @@ const Cart = () => {
                     <div className="cart-checkout">
                         <div className="shipping">
                             <span>Shipping</span>
-                            <span className="shippingAmount">{currency}{parseFloat(cart.cartShippingAmount.newValue).toFixed(2)}</span>
+                            <span className="shippingAmount">{currency}{parseFloat(deliveryFee).toFixed(2)}</span>
                         </div>
                         <div className="subtotal">
                             <span>Subtotal</span>
@@ -123,12 +154,8 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
         )}
-
     </div>
     );
 };

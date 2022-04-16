@@ -3,12 +3,12 @@ import {Link} from "react-router-dom"
 import { getTotal} from "../features/cartSlice";
 import { useEffect } from "react";
 
-
 const Order = () => {
     const cart = useSelector((state)=> state.cart);
     const dispatch = useDispatch();
     useEffect(()=>{
-        dispatch(getTotal());
+        // reset the basket count in the header bar
+        dispatch(getTotal(0));
     },[cart,dispatch])
         
     return (
