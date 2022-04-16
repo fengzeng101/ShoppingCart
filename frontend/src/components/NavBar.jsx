@@ -5,7 +5,10 @@ const NavBar = () => {
     const {cartTotalQuantity} =useSelector(state=>state.cart)
     return ( <nav className = "nav-bar">
             <Link to = "/">
-                <h2>LEGO Store</h2>
+                <div className="nav-bar-lego">
+                    <img src={"https://res.cloudinary.com/dmkadw8wn/image/upload/v1650083881/shoppingCart/logo1_xh4z93.png"} alt="LEGO"/>
+                    <h2>Store</h2>
+                </div>
             </Link>
             <Link to = "/cart">
                 <div className="nav-bag">
