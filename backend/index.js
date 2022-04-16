@@ -10,11 +10,13 @@ app.get("/",(req,res)=>{
 })
 
 // return the products
+// products will display at "http://localhost:5000/products"
 app.get("/products",(req,res)=>{
     res.send(products)
 })
 
 // calculate the total shipping cost
+// call "http://localhost:5000/shipping/50" to get the shipping price
 app.get("/shipping/:price",(req,res)=>{
     const {price}= req.params;    
     console.log(`shipping req.params =${JSON.stringify(req.params)}`);      
