@@ -103,7 +103,7 @@ const Cart = () => {
                     <div className="cart-checkout">
                         <div className="shipping">
                             <span>Shipping</span>
-                            <span className="shippingAmount">{currency}{parseFloat(cart.cartShippingAmount).toFixed(2)}</span>
+                            <span className="shippingAmount">{currency}{parseFloat(cart.cartShippingAmount.newValue).toFixed(2)}</span>
                         </div>
                         <div className="subtotal">
                             <span>Subtotal</span>

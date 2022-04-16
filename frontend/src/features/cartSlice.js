@@ -7,7 +7,7 @@ const initialState = {
     ? JSON.parse(localStorage.getItem("cartItems")):[],
     cartTotalQuantity:0,
     cartTotalAmount:0,
-    cartShippingAmount:10,
+    cartShippingAmount:{newValue:10,audValue:10},
     cartCountry:{ value:1, label:"Australia"},
     currencyLabel:"$",
 }
@@ -21,13 +21,15 @@ const cartSlice=createSlice({
                 state.cartItems[itemIndex].cartQuantity +=1;
                 toast.info(`increased ${state.cartItems[itemIndex].name} quantity`,{position:"bottom-left"});
             }
-            else{
-                console.log(`new item${state.cartCountry.label}`);
-                const tempProduct = {...action.payload, cartQuantity:1,oldPrice:action.payload.price};
-                state.cartItems.push(tempProduct);  
-                console.log(`newcartItem =${JSON.stringify(state.cartItems)}`);               
-                toast.success(`${action.payload.name} added to basket`,{position:"bottom-left"});
-                
+            else{                
+                const tempProduct = {...action.payload, cartQuantity:1,audPrice:action.payload.price};
+                const countryIndex =countryList.findIndex(country=>country.label===state.cartCountry.label);                         
+                if(countryIndex>=0)                                                                                                                   
+                {                 
+                   tempProduct.price = action.payload.price * countryList[countryIndex].value;                   
+                }                                
+                state.cartItems.push(tempProduct);                       
+                toast.success(`${action.payload.name} added to basket`,{position:"bottom-left"});                
             }
             localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
         },
@@ -74,38 +76,17 @@ const cartSlice=createSlice({
                 quantity:0
             })
             state.cartTotalQuantity=quantity;
-            state.cartTotalAmount=total + state.cartShippingAmount;
+            state.cartTotalAmount=total + state.cartShippingAmount.newValue;
         },
         setCartCountry(state,action)
-        {
-            //if(action.payload.label !== state.cartCountry.label)
-            //{
-               // console.log(`old country${state.cartCountry.label}`);
-               // console.log(`new country${action.payload.label}`);
-                //let oldValue = state.cartCountry.value;
-                state.cartCountry = action.payload;
-               //console.log(`action.payload =${JSON.stringify(action.payload)}`); 
-                 //console.log(`state.cartItems111 =${JSON.stringify(state.cartItems)}`); 
-                // console.log(`hello`); 
-                  const countryIndex =countryList.findIndex(country=>country.label===action.payload.label);
-                //  console.log(`countryIndex${countryIndex}`); 
-                //  const countryOldIndex =countryList.findIndex(country=>country.label===action.payload.oldLabel);
-                //  console.log(`countryOldIndex${countryOldIndex}`); 
-                //  if(countryIndex>=0 && countryOldIndex>=0)
-                 //{
-                     state.currencyLabel=countryList[countryIndex].symbol;
-                    
-                //console.log(`hello`); 
-                     for (let i = 0; i < state.cartItems.length; i++) {
-                         state.cartItems[i].price = state.cartItems[i].oldPrice * countryList[countryIndex].value;                        
-                     }
-                // }
-                // else
-                // {
-                //     state.currencyLabel="$";
-                // }
-                // getTotal(state,action);
-            //}
+        {            
+            state.cartCountry = action.payload;            
+            const countryIndex =countryList.findIndex(country=>country.label===action.payload.label);            
+            state.currencyLabel=countryList[countryIndex].symbol;                            
+            for (let i = 0; i < state.cartItems.length; i++) {
+                state.cartItems[i].price = state.cartItems[i].audPrice * countryList[countryIndex].value;                        
+            }  
+            state.cartShippingAmount.newValue = state.cartShippingAmount.audValue  * countryList[countryIndex].value;              
         }
     },
 });
