@@ -1,16 +1,24 @@
 import {useSelector,useDispatch} from "react-redux";
 import {Link} from "react-router-dom"
 import { removeFromCart ,decreaseCart,addToCart,clearCart,getTotal} from "../features/cartSlice";
-import { useEffect } from "react";
+import { useEffect,useState} from "react";
 import { useHistory } from "react-router-dom";
+import CountrySelect from "./CountrySelect"
+
 
 const Cart = () => {
     const cart = useSelector((state)=> state.cart);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [currency,setCurrency]=useState(cart.currencyLabel);
     useEffect(()=>{
+        
+        setCurrency(cart.currencyLabel);
         dispatch(getTotal());
-    },[cart,dispatch])
+       // console.log(`user effect cart =${JSON.stringify(cart)}`);
+    },[cart,dispatch,currency])
+   
+    
 
     const handleRemoveFromCart = (cartItem)=>{
         dispatch(removeFromCart(cartItem));
@@ -55,7 +63,8 @@ const Cart = () => {
             <div>
                <div className="go-home-container">
                     <button onClick={()=> handleGoToHome()} className="back-home" >Back To Home</button>
-                    <div className="go-home-right">combox</div>                    
+                    <div className="go-home-label">Country</div> 
+                    <div className="go-home-right"><CountrySelect/></div>                    
                </div>
                <div className="titles">
                  <h3 className="product-title">Product</h3> 
@@ -76,14 +85,14 @@ const Cart = () => {
                                     </button>
                                 </div>
                             </div>
-                            <div className="cart-product-price">${cartItem.price}</div>
+                            <div className="cart-product-price">{currency}{parseFloat(cartItem.price).toFixed(2)}</div>
                             <div className="cart-product-quantity">
                                 <button onClick={()=>handleDecreaseCart(cartItem)}>-</button>
                                 <div className="count">{cartItem.cartQuantity}</div>
                                 <button onClick={()=> handleIncreaseCart(cartItem)}>+</button>
                             </div>
                             <div className="cart-product-total-price">
-                                ${cartItem.cartQuantity * cartItem.price}
+                                {currency}{parseFloat(cartItem.cartQuantity * cartItem.price).toFixed(2)}
                             </div>
                         </div>
                     ))}
@@ -94,11 +103,11 @@ const Cart = () => {
                     <div className="cart-checkout">
                         <div className="shipping">
                             <span>Shipping</span>
-                            <span className="shippingAmount">${cart.cartShippingAmount}</span>
+                            <span className="shippingAmount">{currency}{parseFloat(cart.cartShippingAmount).toFixed(2)}</span>
                         </div>
                         <div className="subtotal">
                             <span>Subtotal</span>
-                            <span className="amount">${cart.cartTotalAmount}</span>
+                            <span className="amount">{currency}{parseFloat(cart.cartTotalAmount).toFixed(2)}</span>
                         </div>
                         {/* <p>Taxes and shipping calculated at checkout</p> */}
                         <button onClick={()=>handlePlaceOrder()}>Place order</button>
