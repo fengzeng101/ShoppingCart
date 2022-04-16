@@ -11,8 +11,43 @@ app.get("/",(req,res)=>{
     res.send("Welcome to our online shop API...")
 })
 
+// return the products
 app.get("/products",(req,res)=>{
     res.send(products)
 })
+
+// calculate the total shipping cost
+app.post("/shipping/:price",(req,res)=>{
+    const {price}= req.params;    
+    console.log(`shipping req.params =${JSON.stringify(req.params)}`);      
+    if(!price)
+    {
+        res.status(418).send({message:'We need a price parameter!'})
+    }
+    else
+    {
+        let shippingCost = 10    
+        if(price >50)        
+          {shippingCost = 20;}        
+        res.send({shipping:shippingCost});    
+    }    
+});
+
+
+// return the thank you message
+app.post("/order/",(req,res)=>{
+    const order= req.body;       
+    console.log(`order body =${JSON.stringify(req.body)}`);   
+    if (Object.keys(order).length === 0) 
+    {
+        res.status(418).send({message:'We need a order value!'})
+    }
+    else
+    {               
+        res.send({order:"Order success!"});    
+    }    
+});
+
+
 const port = process.env.port || 5000
 app.listen(port, console.log(`Server running on port ${port}`))
