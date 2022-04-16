@@ -1,8 +1,6 @@
 const express = require("express")
 const cors = require("cors")
-
 const products = require("./products")
-
 const app = express()
 
 app.use(express.json())
@@ -17,7 +15,7 @@ app.get("/products",(req,res)=>{
 })
 
 // calculate the total shipping cost
-app.post("/shipping/:price",(req,res)=>{
+app.get("/shipping/:price",(req,res)=>{
     const {price}= req.params;    
     console.log(`shipping req.params =${JSON.stringify(req.params)}`);      
     if(!price)
@@ -26,7 +24,9 @@ app.post("/shipping/:price",(req,res)=>{
     }
     else
     {
+        // default shipping fee is AUD$10
         let shippingCost = 10    
+        // if the basket total > AUD$50, return $20 
         if(price >50)        
           {shippingCost = 20;}        
         res.send({shipping:shippingCost});    
