@@ -2,16 +2,6 @@ const express = require('express');
 const products = require("../products/products")
 
 const router = express.Router();
-// router.post('/register', (req, res, next) => {
-//   //console.log(`xxxxxxxxxx${JSON.stringify(req.body)}`);
-//   if (!req.body.firstName) {
-//     res.status(400).json('you need to pass a firstName');
-//     return;
-//   }
-//   res.sendStatus(201);
-// });
-
-
 
 router.get("/",(req,res)=>{
   res.send("Welcome to our online shop API...")

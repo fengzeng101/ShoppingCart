@@ -20,7 +20,7 @@ describe('get products testing', () => {
  });
 
 describe('shipping fee testing', () => {
-  it('returns 10 if the order price is less then A$50', async () => {
+  it('returns 10 if the order price is less or equal then A$50', async () => {
     const res = await request(app).get('/shipping/20');
     expect(res.body.shipping).toEqual(10);
   });
