@@ -1,4 +1,6 @@
-import cartSlice from "../features/cartSlice"
+import cartSlice,{addToCart,removeFromCart,decreaseCart,
+    clearCart,getTotal,setCartCountry,removeCart} from "../features/cartSlice";
+import products from "./__mocks__/products";
 
 const defaultState =
  {
@@ -10,9 +12,28 @@ const defaultState =
     "currencyLabel": "$"
 }
 
+const product = products[0];
 
 describe("Cart Reducer", () => {
     test('Cart reducer initial state', ()=>{    
     expect(cartSlice(undefined,{})).toEqual(defaultState);
     });  
+
+    // test('Add Product', ()=>{    
+    //     const initialState = undefined;
+    //     const action = addToCart(product);
+    //     const state = cartSlice(initialState,action);
+    //     expect(state).toEqual({
+    //         cartItems :[{product}]  
+    //     });
+    //     });  
+
+    // test('clear Cart', ()=>{    
+    //     const initialState = undefined;
+    //     const action = {type:""};
+    //     const state = cartSlice(initialState,action);
+    //     expect(state).toEqual({
+    //         cartItems :[]   });                 
+    //     });  
 });  
+
