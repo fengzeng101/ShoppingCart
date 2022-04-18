@@ -1,7 +1,7 @@
 
 // run it by type in below command
 //node .\src\test\playwright.js
-// it will catch an image and record an video in .\Videos folder
+// it will catch an image and record a video in .\Videos folder
 
 const { chromium } = require('playwright');
 
