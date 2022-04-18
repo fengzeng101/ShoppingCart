@@ -1,5 +1,5 @@
 
-import './csv/App.css';
+import './styles/App.css';
 import "react-toastify/dist/ReactToastify.css"
 import { Route, Switch,Redirect} from "react-router-dom"
 import {ToastContainer} from "react-toastify"

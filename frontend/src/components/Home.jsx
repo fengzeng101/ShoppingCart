@@ -25,7 +25,7 @@ const Home = () => {
                         <h2>New Arrivals</h2>
                         <div className="go-basket-container">
                             <div className="go-basket-left"> </div>
-                            <button onClick={()=> handleGoToCart()} className="go-basket" >Go To Basket</button>
+                            <button name="goToBasket" onClick={()=> handleGoToCart()} className="go-basket" >Go To Basket</button>
                         </div>
                         <div className="products">
                             {data?.map(product=><div key={product.id} className="product">

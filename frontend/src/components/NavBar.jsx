@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import Lego from "../images/lego.png";
 
 const NavBar = () => {
-    const {cartTotalQuantity} =useSelector(state=>state.cart)
+    const {cartTotalQuantity} =useSelector(state=>state.cart)   
+    // const cartTotalQuantity =0;
     return ( <nav className = "nav-bar">
             <Link to = "/">
                 <div className="nav-bar-lego">
