@@ -1,6 +1,7 @@
 import React from 'react'
-// import { render, screen } from './test-utils'
+//import { render as rtlRender } from './test-utils'
 import { render as rtlRender,screen } from '@testing-library/react'
+//import { screen } from '@testing-library/react'
 import Cart from "../components/Cart"
 import { Provider } from 'react-redux';
 import store from "../store";
@@ -10,9 +11,10 @@ import {BrowserRouter} from "react-router-dom";
 
 const render = component => rtlRender(
     <BrowserRouter>
-        <Provider store={store} >
+      <Provider store={store} >
         {component}
-        </Provider>,
+      </Provider>,
+        
     </BrowserRouter>
 )
 

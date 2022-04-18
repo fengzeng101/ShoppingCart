@@ -13,6 +13,7 @@ const initialState = {
         ? JSON.parse(localStorage.getItem("country")):{ value:1, label:"Australia"},
     currencyLabel:"$",
 }
+
 const cartSlice=createSlice({
     name:"cart",
     initialState,
@@ -21,7 +22,7 @@ const cartSlice=createSlice({
             const itemIndex =state.cartItems.findIndex(item=>item.id===action.payload.id);
             if(itemIndex>=0){
                 state.cartItems[itemIndex].cartQuantity +=1;
-                toast.info(`increased ${state.cartItems[itemIndex].name} quantity`,{position:"bottom-left"});
+                //toast.info(`increased ${state.cartItems[itemIndex].name} quantity`,{position:"bottom-left"});
             }
             else{                
                 const tempProduct = {...action.payload, cartQuantity:1,audPrice:action.payload.price};
@@ -31,7 +32,7 @@ const cartSlice=createSlice({
                    tempProduct.price = action.payload.price * countryList[countryIndex].value;                   
                 }                                
                 state.cartItems.push(tempProduct);                       
-                toast.success(`${action.payload.name} added to basket`,{position:"bottom-left"});                
+                //toast.success(`${action.payload.name} added to basket`,{position:"bottom-left"});                
             }
             localStorage.setItem("cartItems",JSON.stringify(state.cartItems));            
         },
@@ -48,14 +49,14 @@ const cartSlice=createSlice({
             if(state.cartItems[itemIndex].cartQuantity>1)
             {
                 state.cartItems[itemIndex].cartQuantity-=1;
-                toast.error(`Decreased ${action.payload.name} basket quantity`,{position:"bottom-left"});
+                //toast.error(`Decreased ${action.payload.name} basket quantity`,{position:"bottom-left"});
             }
             else if(state.cartItems[itemIndex].cartQuantity===1){
                 const nextCartItems = state.cartItems.filter(
                     cartItem=>cartItem.id !== action.payload.id
                 )
                 state.cartItems = nextCartItems;               
-                toast.error(`${action.payload.name} remove from basket`,{position:"bottom-left"});
+                //toast.error(`${action.payload.name} remove from basket`,{position:"bottom-left"});
             }
             localStorage.setItem("cartItems",JSON.stringify(state.cartItems));            
         },

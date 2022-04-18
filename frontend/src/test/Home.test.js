@@ -1,11 +1,13 @@
 import React from 'react'
 // import { render, screen } from './test-utils'
-import { render as rtlRender,screen } from '@testing-library/react'
+import { render as rtlRender,screen, fireEvent } from '@testing-library/react'
 import Home from "../components/Home"
 import { Provider } from 'react-redux';
 import store from "../store";
 import '@testing-library/jest-dom';
 import {BrowserRouter} from "react-router-dom";
+import { configureStore } from '@reduxjs/toolkit';
+
 //import userEvent from '@testing-library/user-event";'
 
 
@@ -22,8 +24,11 @@ describe("Home", () => {
 
     test('Home loading properly', ()=>{
     render(<Home/>)
-    //const goToBasketButton = getByRole('button',{name:'goToBasket'})
+    
+    //const goToBasketButton = screen.getByRole('button',{name:'goToBasket'})
     //userEvent.click(goToBasketButton)
+    
+    //fireEvent.click(goToBasketButton)
     expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
     // beforeEach(() => {

@@ -8,9 +8,6 @@ import Adapter from "enzyme-adapter-react-16"
 
 import App from '../App';
 import NavBar from "../components/NavBar"
-
-
-
 import Home from "../components/Home"
 import { Provider } from 'react-redux';
 import store from "../store";
@@ -26,13 +23,13 @@ const render = component => rtlRender(
   </BrowserRouter>
 )
 
-
 configure({adapter: new Adapter()});
+const ezymeWrapper = shallow(<App/>);
 
 
-describe("rendering components",()=>{
-  it("renders App component without crashing", ()=>{
-    shallow(<App/>);
+describe("rendering components",()=>{  
+  it("renders App component without crashing", ()=>{    
+    expect(ezymeWrapper).toBeDefined();
   });
   
   // it("renders NavBar component without crashing", ()=>{
@@ -41,6 +38,22 @@ describe("rendering components",()=>{
 
 });
  
+describe("NavBar", () => {
+
+  test('NavBar loading properly', ()=>{
+  render(<NavBar/>)
+  expect(screen.getByText('Store')).toBeInTheDocument();
+
+  });
+
+  // render(<NavBar/>);
+  // test('should contain <img/ > with alt as logo', () => {
+    
+  //   expect(screen.getByAltText('LEGO')).toBeInTheDocument();  
+  //  });
+  
+});
+
 describe("Home", () => {
 
   test('Home loading properly', ()=>{

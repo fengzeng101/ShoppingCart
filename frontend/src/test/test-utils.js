@@ -5,27 +5,29 @@ import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 // Import your own reducer
 //import userReducer from '../userSlice'
-import rootReducer from '../features/rootReducers'
+
+//import rootReducer from '../features/rootReducers'
+
+import {cartSlice} from '../features/cartSlice'
+
 
 // copy these coding from this site
 //https://redux.js.org/usage/writing-tests
 
-const preloadedState = {
-  // use Local Storage to avoid refresh screen to lost data
-  cartItems: [],
-  cartTotalQuantity: 0,
-  cartTotalAmount: 0,
-  cartShippingAmount: { newValue: 10, audValue: 10 },
-  cartCountry: { value: 1, label: "Australia" },
-  currencyLabel: "$",
-}
 
-function render(
- 
+function render(  
   ui,
-  {
-    preloadedState={cartTotalQuantity: 0},
-    store = configureStore({ reducer: { user: rootReducer }, preloadedState}),
+  {    
+    preloadedState,
+    store = configureStore({ reducer:  {cartSlice} , preloadedState:{      
+        cartItems: [],
+        cartTotalQuantity: 0,
+        cartTotalAmount: 0,
+        cartShippingAmount: { newValue: 10, audValue: 10 },
+        cartCountry: { value: 1, label: "Australia" },
+        currencyLabel: "$",
+      
+    }}),
     ...renderOptions
   } = {}
 ) {
