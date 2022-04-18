@@ -3,9 +3,10 @@
 1. cd backend
 2. npm install
 3. npm test
-4. nodemon
-5. products will be displayed at "http://localhost:5000/products"
-6. call "http://localhost:5000/shipping/50" to get the shipping price
+4. npm install -g nodemon
+5. npx nodemon
+6. products will be displayed at "http://localhost:5000/products"
+7. call "http://localhost:5000/shipping/50" to get the shipping price
 
 ## Front End
 1. cd frontend
