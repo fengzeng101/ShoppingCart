@@ -11,7 +11,7 @@
 1. cd frontend
 2. npm install
 3. npm start
-4. run node .\src\test\playwright.js to create an video
+4. run node .\src\test\playwright.js to create a video
 5. npm test
 6. shopping website will be displayed at "http://localhost:3000/"
 7. enjoy the shopping
