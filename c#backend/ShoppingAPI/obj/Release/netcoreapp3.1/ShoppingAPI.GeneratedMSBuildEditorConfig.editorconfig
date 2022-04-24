@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = ShoppingAPI
+build_property.ProjectDir = C:\ShoppingCart\c#backend\ShoppingAPI\
