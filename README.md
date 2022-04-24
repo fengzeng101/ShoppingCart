@@ -1,5 +1,5 @@
 # How to run Shopping Cart
-## Back End
+## Node JS Back End
 1. cd backend
 2. npm install
 3. npm test
@@ -8,7 +8,7 @@
 6. products will be displayed at "http://localhost:5000/products"
 7. call "http://localhost:5000/shipping/50" to get the shipping price
 
-## Front End
+## React Redux Front End
 1. cd frontend
 2. npm install
 3. npm start
@@ -17,7 +17,7 @@
 6. shopping website will be displayed at "http://localhost:3000/"
 7. enjoy the shopping
 
-## C # Back End
+## C# Back End
 1. Install Visual Studio Community 2022 ASP.NET and Web Development
 2. Open The Solution File .\ShoppingCart\c#backend\ShoppingAPI.sln
 3. Build -> Build Solution
