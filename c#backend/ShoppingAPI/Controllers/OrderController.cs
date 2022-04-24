@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 
 namespace ShippingAPI.Controllers

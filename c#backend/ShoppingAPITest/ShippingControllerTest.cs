@@ -1,29 +1,20 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ShippingAPI;
 using ShippingAPI.Controllers;
-using System.Collections.Generic;
 using Xunit;
 
 namespace ShoppingAPITest
 {
     public class ShippingControllerTest
     {
-        private readonly ShippingController _controller;        
-        private readonly ILogger<ShippingController> _logger;
+        private readonly ShippingController _controller;                
        
         public ShippingControllerTest()
-        {
-            using var logFactory = LoggerFactory.Create(builder => builder.AddConsole());
-            var logger = logFactory.CreateLogger<ShippingController>();                      
-            _controller = new ShippingController( logger);
-            _logger = logger;
-
+        {                                 
+            _controller = new ShippingController();            
         }
-
        
-
         [Fact]
         public void GetSmallOrderShippingFeeTest()
         {

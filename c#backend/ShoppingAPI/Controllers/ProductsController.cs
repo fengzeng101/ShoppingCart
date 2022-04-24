@@ -7,13 +7,11 @@ namespace ShippingAPI.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService _service;              
-        private readonly ILogger<ProductsController> _logger;
+        private readonly IProductService _service;                      
 
         // Dependency injection for our product service
-        public ProductsController(IProductService service,ILogger<ProductsController> logger)        
-        {
-            _logger = logger;
+        public ProductsController(IProductService service)        
+        {            
             _service = service;
         }
 

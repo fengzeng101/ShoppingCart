@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using ShippingAPI;
 using ShippingAPI.Controllers;
-using System.Collections.Generic;
 using System.Text.Json;
 using Xunit;
 

@@ -11,18 +11,12 @@ namespace ShoppingAPITest
     public class ProductControllerTest
     {
         private readonly ProductsController _controller;
-        private readonly IProductService _service;
-        private readonly ILogger<ProductsController> _logger;
+        private readonly IProductService _service;        
        
         public ProductControllerTest()
-        {
-            using var logFactory = LoggerFactory.Create(builder => builder.AddConsole());
-            var logger = logFactory.CreateLogger<ProductsController>();
-
+        {            
             _service = new ProductService();            
-            _controller = new ProductsController(_service, logger);
-            _logger = logger;
-
+            _controller = new ProductsController(_service);            
         }
 
 

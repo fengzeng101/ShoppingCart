@@ -7,14 +7,8 @@ namespace ShippingAPI.Controllers
     [ApiController]
     [Route("[controller]")]
     public class ShippingController : ControllerBase
-    {
-        private readonly ILogger<ShippingController> _logger;
-
-        public ShippingController(ILogger<ShippingController> logger)
-        {
-            _logger = logger;
-        }
-
+    {        
+        
         //GET http://localhost:5000/shipping/60
         [EnableCors("_myAllowSpecificOrigins")]        
         [HttpGet("{price}")]
@@ -30,8 +24,7 @@ namespace ShippingAPI.Controllers
            
             var result = new
             {
-                shipping = shippingFee,
-             
+                shipping = shippingFee,             
             };
 
             // return {"Shipping":20}
