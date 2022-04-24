@@ -16,3 +16,17 @@
 5. npm test
 6. shopping website will be displayed at "http://localhost:3000/"
 7. enjoy the shopping
+
+## C # Back End
+1. Install Visual Studio Community 2022 ASP.NET and Web Development
+2. Open The Solution File .\ShoppingCart\c#backend\ShoppingAPI.sln
+3. Build -> Build Solution
+4. Test -> Run All Tests
+5. Run .\ShoppingCart\c#backend\ShoppingAPI\bin\Debug\net6.0\ShoppingAPI.exe
+6. You can test below 3 APIs in Swagger,Postman or React Front-End Project
+
+API Endpoints Are:
+1. GET http://localhost:5000/products
+2. GET http://localhost:5000/shipping/60    
+3. POST http://localhost:5000/order	
+  Post Body JSON value =  [{"id":2,"name":"London","desc":"LEGO 21034 Architecture London","price":20}]
