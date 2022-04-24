@@ -1,4 +1,21 @@
-﻿This is a cutting edge VS2022 ASP .Net Core Web API Project,
+﻿
+How to run c# backend API project
+
+1. install Visual Studio Community 2022 ASP.NET and web development
+2. open the .\ShoppingCart\c#backend\ShoppingAPI.sln
+3. Build -> Build Solution
+4. Test -> Run All Tests
+5. Run .\ShoppingCart\c#backend\ShoppingAPI\bin\Debug\net6.0\ShoppingAPI.exe
+6. you can test below 3 APIs in Swagger,Postman or React front-end project
+
+API Endpoints Are:
+GET http://localhost:5000/products
+GET http://localhost:5000/shipping/60    
+POST http://localhost:5000/order
+	Body JSON value =  [{"id":2,"name":"London","desc":"LEGO 21034 Architecture London","price":20}]
+
+
+This is a cutting edge VS2022 ASP .Net Core Web API Project,
 I create this C# backend REST API functions to meet my React Web Project API requirement,
 this small project involved below C# technics
 
@@ -34,13 +51,5 @@ this small project involved below C# technics
 	29.Document In Each API Function Heading,
 	30.Build & Release APP For .NET6.0 Framework
 
-Output File
-.\ShoppingAPI\bin\Release\net6.0\ShoppingAPI.exe
-
-API Endpoints Are:
-GET http://localhost:5000/products
-GET http://localhost:5000/shipping/60    
-POST http://localhost:5000/order
-	Body JSON value =  [{"id":2,"name":"London","desc":"LEGO 21034 Architecture London","price":20}]
 
 23/04/2022
