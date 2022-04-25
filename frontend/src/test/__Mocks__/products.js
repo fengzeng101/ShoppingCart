@@ -1,5 +1,7 @@
 const products = [
     {
+        audPrice: 35,
+        cartQuantity: 1,
         id:1,
         name:"New York",
         desc:"LEGO 21028 Architecture New York City",

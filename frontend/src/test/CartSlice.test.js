@@ -16,24 +16,28 @@ const product = products[0];
 
 describe("Cart Reducer", () => {
     test('Cart reducer initial state', ()=>{    
-    expect(cartSlice(undefined,{})).toEqual(defaultState);
-    });  
+        expect(cartSlice(undefined,{})).toEqual(defaultState);
+        });  
 
-    // test('Add Product', ()=>{    
-    //     const initialState = undefined;
-    //     const action = addToCart(product);
-    //     const state = cartSlice(initialState,action);
-    //     expect(state).toEqual({
-    //         cartItems :[{product}]  
-    //     });
-    //     });  
+    test('Add Product', ()=>{    
+        const initialState = undefined;
+        const action = addToCart(product);
+        const state = cartSlice(initialState,action);              
+        expect(JSON.stringify({product:state.cartItems[0]})).toEqual((JSON.stringify({product})));
+        });  
 
-    // test('clear Cart', ()=>{    
-    //     const initialState = undefined;
-    //     const action = {type:""};
-    //     const state = cartSlice(initialState,action);
-    //     expect(state).toEqual({
-    //         cartItems :[]   });                 
-    //     });  
+    test('Remove Product', ()=>{    
+        const initialState = undefined;
+        const action = removeFromCart(product);
+        const state = cartSlice(initialState,action);        
+        expect(state.cartTotalQuantity).toEqual(0);
+        });  
+
+    test('clear Cart', ()=>{    
+        const initialState = undefined;
+        const action = clearCart();
+        const state = cartSlice(initialState,action);
+        expect(state.cartItems).toEqual([]);                 
+        });  
 });  
 
