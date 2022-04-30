@@ -30,3 +30,9 @@ API Endpoints Are:
 2. GET http://localhost:5000/shipping/60    
 3. POST http://localhost:5000/order	
   Post Body JSON value =  [{"id":2,"name":"London","desc":"LEGO 21034 Architecture London","price":20}]
+
+## TypeScript Back End
+1. cd TypeScript_Backend
+2. npm install
+3. npm start
+4. run the front end project to start shopping
