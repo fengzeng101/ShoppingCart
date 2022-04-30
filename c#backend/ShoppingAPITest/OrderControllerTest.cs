@@ -12,7 +12,7 @@ namespace ShoppingAPITest
     public class OrderControllerTest
     {
         private readonly OrderController _controller;
-        private readonly IProductService _service;
+        private readonly IOrderService _service;
         private readonly ILogger<OrderController> _logger;
        
         public OrderControllerTest()
@@ -20,8 +20,8 @@ namespace ShoppingAPITest
             using var logFactory = LoggerFactory.Create(builder => builder.AddConsole());
             var logger = logFactory.CreateLogger<OrderController>();
 
-            _service = new ProductService();            
-            _controller = new OrderController(logger);
+            _service = new OrderService();            
+            _controller = new OrderController(logger, _service);
             _logger = logger;
 
         }

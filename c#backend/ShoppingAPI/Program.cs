@@ -28,6 +28,8 @@ builder.Services.AddSwaggerGen();
 
 //registers the product service with a scoped lifetime
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IShippingService, ShippingService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 

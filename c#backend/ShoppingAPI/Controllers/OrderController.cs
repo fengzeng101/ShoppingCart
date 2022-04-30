@@ -9,10 +9,12 @@ namespace ShippingAPI.Controllers
     public class OrderController : ControllerBase
     {
         private readonly ILogger<OrderController> _logger;
+        private readonly IOrderService _service;
 
-        public OrderController(ILogger<OrderController> logger)
+        public OrderController(ILogger<OrderController> logger, IOrderService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         // POST http://localhost:5000/order
@@ -21,32 +23,10 @@ namespace ShippingAPI.Controllers
         [HttpPost(Name = "PostOrder")]
         public IActionResult  Post([FromBody] Newtonsoft.Json.Linq.JArray payload)
         {
-            var result = new OrderResult() { Order = "Order fail!" };            
-            bool isProperProduct = true;
-
+            var result = new OrderResult() { Order = "Order fail!" };                        
             try
-            {               
-                List<object> list = new List<object>();
-
-                foreach (object obj in payload)
-                {
-                    if (obj != null)
-                    {
-                        string orderString = obj.ToString();
-
-                        // deserialize to product object
-                        var product = Newtonsoft.Json.JsonConvert.DeserializeObject<Product>(orderString);
-
-                        // make sure the product has a name and price value
-                        if (product == null || product?.Name == string.Empty || product?.Price == 0)
-                        {
-                            isProperProduct = false;
-                        }
-                    }
-                }
-                                                                      
-                if (isProperProduct == true)
-                    result = new OrderResult() { Order = "Order success!" };
+            {              
+                result = _service.GetOrderResult(payload);
             }
             catch (Exception ex)
             {                

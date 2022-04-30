@@ -7,8 +7,16 @@ namespace ShippingAPI.Controllers
     [ApiController]
     [Route("[controller]")]
     public class ShippingController : ControllerBase
-    {        
-        
+    {
+
+        private readonly IShippingService _service;
+
+        // Dependency injection for our product service
+        public ShippingController(IShippingService service)
+        {
+            _service = service;
+        }
+
         //GET http://localhost:5000/shipping/60
         [EnableCors("_myAllowSpecificOrigins")]        
         [HttpGet("{price}")]
@@ -16,17 +24,8 @@ namespace ShippingAPI.Controllers
         // need to set price to decimal, otherwise the forign currency calculation is not working
         public IActionResult  Get(decimal price)
         {
-            // set up default shipping fee
-            int shippingFee = 10;
-            // if order price greater then $50, change the shipping fee
-            if (price >50)
-                shippingFee = 20;
-           
-            var result = new
-            {
-                shipping = shippingFee,             
-            };
-
+            
+            var result =  _service.GetShippingFee(price);
             // return {"Shipping":20}
             return Ok(Newtonsoft.Json.JsonConvert.SerializeObject(result));
             
